@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gym_check/components/workout-list-item.dart';
-import 'package:gym_check/models/Workout.dart';
 import 'package:gym_check/screens/add-workout.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,42 +12,50 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<String> _email;
+
+  @override
+  void initState() {
+    super.initState();
+    _email = _prefs
+        .then((SharedPreferences prefs) => prefs.getString('email') ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    var _email;
-
-  void teste() async {
-    final SharedPreferences prefs = await _prefs;
-    // super.initState();
-    setState(() {
-      _email = prefs.getString('email');
-    });
-    print(_email);
-  }
-  teste();
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Home'), actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.add),
-          tooltip: 'Adicionar Ficha',
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddWorkout()));
-          },
-        ),
-      ],
+      appBar: AppBar(
+        title: const Text('Home'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Adicionar Ficha',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AddWorkout()));
+            },
+          ),
+        ],
         backgroundColor: Colors.red,
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text('teste123 $_email'),
-            WorkoutListItem('Treino 1', 'Treino de peito', 5),
-            WorkoutListItem('Treino 2', 'Treino de perna', 5),
-          ],
-        ),
+        child: FutureBuilder<String>(
+            future: _email,
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const CircularProgressIndicator();
+                default:
+                  return Column(
+                    children: [
+                      Text('Seja bem vindo, ${snapshot.data}'),
+                      WorkoutListItem('Treino 1', 'Treino de peito', 5),
+                      WorkoutListItem('Treino 2', 'Treino de perna', 5),
+                    ],
+                  );
+              }
+            }),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -56,7 +63,7 @@ class _HomeState extends State<Home> {
               MaterialPageRoute(builder: (context) => const QRCodeReader()));
         },
         backgroundColor: Colors.red,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.camera_alt),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_check/components/exercise-item.dart';
 import 'package:gym_check/components/workout-list-item.dart';
-import 'package:gym_check/models/Workout.dart';
+import 'package:gym_check/models/workout.dart';
 import 'package:gym_check/screens/add-exercise.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
 import 'package:gym_check/screens/workout.dart';
@@ -18,7 +18,7 @@ class WorkoutDetails extends StatelessWidget {
           tooltip: 'Adicionar Ficha',
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddExercise()));
+                MaterialPageRoute(builder: (context) => AddExercise()));
           },
         ),
       ]),
