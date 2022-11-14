@@ -5,7 +5,6 @@ import 'package:gym_check/screens/home.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({super.key});
 
@@ -15,7 +14,8 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController _textEditingControllerEmail = TextEditingController();
-  TextEditingController _textEditingControllerPassword = TextEditingController();
+  TextEditingController _textEditingControllerPassword =
+      TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -69,8 +69,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   final SharedPreferences prefs = await _prefs;
                   prefs.setString('email', _textEditingControllerEmail.text);
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Home())
-                  );
+                      MaterialPageRoute(builder: (context) => const Home()));
                 }
               },
               child: const Text('Enviar'),
@@ -82,24 +81,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 }
 
-
 class Login extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login'), actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.add),
-          tooltip: 'Adicionar Ficha',
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddWorkout()));
-          },
-        ),
-      ],
+      appBar: AppBar(
+        title: const Text('Login'),
         backgroundColor: Colors.red,
-      ),   
+      ),
       body: const MyStatefulWidget(),
     );
   }

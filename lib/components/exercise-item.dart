@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gym_check/models/exercicio.dart';
 import 'package:gym_check/screens/exercise-details.dart';
 
 class ExerciseItem extends StatelessWidget {
-  final String name;
-  final String description;
-  final int exercises;
+  final int id;
+  final Exercicio exercicio;
+  final Function? functionOnTap;
 
-  ExerciseItem(
-    this.name,
-    this.description,
-    this.exercises,
-  );
+  ExerciseItem(this.id, this.exercicio, this.functionOnTap);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +17,16 @@ class ExerciseItem extends StatelessWidget {
           child: SizedBox(
             width: 300,
             height: 100,
-            child: Center(child: Text(name)),
+            child: Center(child: Text(exercicio.nome)),
           ),
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ExerciseDetails()));
+            functionOnTap != null
+                ? functionOnTap!(id)
+                : Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ExerciseDetails()));
+            ;
           },
         ),
       ),

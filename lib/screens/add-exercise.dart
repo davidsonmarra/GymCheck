@@ -29,53 +29,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   ExercicioOperations exercicioOperations = ExercicioOperations();
 
-  // _recuperarBancoDados() async {
-  //   final caminhoDB = await getDatabasesPath();
-  //   final localDB = join(caminhoDB, 'gym_check.db');
-  //   var retorno = await openDatabase(
-  //     localDB,
-  //     version: 1,
-  //     onCreate: (db, dbVersaoRecente) {
-  //       String sql = 'CREATE TABLE Exer ('
-  //           'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-  //           'nome VARCHAR,'
-  //           'num_series INTEGER,'
-  //           'num_repeticoes INTEGER,'
-  //           'temp_exercicio INTEGER,'
-  //           'temp_descanso INTEGER'
-  //           ')';
-  //       db.execute(sql);
-  //     },
-  //   );
-  //   print("Aberto: " + retorno.isOpen.toString());
-  //   return retorno;
-  // }
-
-  // _createExercicio(Exercicio exrc) async {
-  //   print('exrc.nome13212');
-  //   Database bd = await _recuperarBancoDados();
-  //   Map<String, dynamic> dadosExer = {
-  //     "nome": exrc.nome,
-  //     "num_series": exrc.numSeries,
-  //     "num_repeticoes": exrc.numRepeticoes,
-  //     "temp_exercicio": exrc.tempExercicio,
-  //     "temp_descanso": exrc.tempDescanso,
-  //   };
-  //   print(dadosExer.toString());
-  //   int id = await bd.insert("Exer", dadosExer);
-  //   print("Salvo: $id");
-  // }
-
-  // _getAllExercises() async {
-  //   Database bd = await _recuperarBancoDados();
-  //   String sql = "SELECT * FROM Exer";
-  //   List exercicios = await bd.rawQuery(sql);
-  //   print(exercicios);
-  // }
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     exercicioOperations.getAllExercises();
   }

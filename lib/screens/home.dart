@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_check/components/workout-list-item.dart';
+import 'package:gym_check/data/ficha_operations.dart';
 import 'package:gym_check/screens/add-workout.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,10 +15,20 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String> _email;
+  FichaOperations fichaOperations = FichaOperations();
+  var fichas = [];
+
+  void loadFichas() async {
+    var _fichas = await fichaOperations.getAllFichas();
+    setState(() {
+      fichas = _fichas;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    loadFichas();
     _email = _prefs
         .then((SharedPreferences prefs) => prefs.getString('email') ?? '');
   }
@@ -50,8 +61,20 @@ class _HomeState extends State<Home> {
                   return Column(
                     children: [
                       Text('Seja bem vindo, ${snapshot.data}'),
-                      WorkoutListItem('Treino 1', 'Treino de peito', 5),
-                      WorkoutListItem('Treino 2', 'Treino de perna', 5),
+                      fichas.length > 0
+                          ? Expanded(
+                              child: ListView.builder(
+                                itemCount: fichas.length,
+                                itemBuilder: (context, index) {
+                                  return WorkoutListItem(
+                                    fichas[index]['id'],
+                                    fichas[index]['nome'],
+                                    fichas[index]['num_exercicios'],
+                                  );
+                                },
+                              ),
+                            )
+                          : const Text('Nenhuma ficha encontrado'),
                     ],
                   );
               }

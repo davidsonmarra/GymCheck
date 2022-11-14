@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gym_check/models/ficha.dart';
 import 'package:gym_check/screens/workout-details.dart';
 
 class WorkoutListItem extends StatelessWidget {
+  final int id;
   final String name;
-  final String description;
   final int exercises;
 
   WorkoutListItem(
+    this.id,
     this.name,
-    this.description,
     this.exercises,
   );
 
@@ -26,7 +27,8 @@ class WorkoutListItem extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const WorkoutDetails()));
+                    builder: (context) =>
+                        WorkoutDetails(Ficha(name, exercises), id)));
           },
         ),
       ),

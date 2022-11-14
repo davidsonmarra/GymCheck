@@ -23,6 +23,6 @@ class ExercicioOperations {
     Database bd = await db.initDatabase();
     String sql = "SELECT * FROM Exer";
     List exercicios = await bd.rawQuery(sql);
-    print(exercicios);
+    return exercicios;
   }
 }
