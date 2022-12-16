@@ -29,7 +29,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  qr_code_scanner: ^1.0.1
   shared_preferences: ^2.0.15
   sqflite: ^2.2.0+3
   path_provider: ^2.0.11
@@ -41,6 +40,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.1
+  qr_code_scanner: ^1.0.1
+  flutter_web_browser: ^0.17.1
 
 dev_dependencies:
   flutter_test:
