@@ -86,6 +86,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     0,
                   );
                   await fichaOperations.createFicha(ficha);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Home()));
                 }
               },
               child: const Text('Adicionar'),

@@ -1,9 +1,14 @@
+import 'dart:ffi';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_check/components/workout-list-item.dart';
 import 'package:gym_check/screens/add-workout.dart';
 import 'package:gym_check/screens/home.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:gym_check/firebase_options.dart';
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({super.key});
@@ -19,6 +24,44 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  initializeFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseAuth auth = FirebaseAuth.instance;
+  }
+
+  firebaseLogin(email, password) async {
+    try {
+      print('userCredential 1');
+
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Home()));
+      print('userCredential 2');
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Erro ao fazer login: e-mail ou senha inválidos')),
+      );
+      print('userCredential 3');
+
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    initializeFirebase();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +108,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState!.validate()) {
-                  // print(_textEditingControllerEmail.text);
                   final SharedPreferences prefs = await _prefs;
+                  await firebaseLogin(_textEditingControllerEmail.text,
+                      _textEditingControllerPassword.text);
                   prefs.setString('email', _textEditingControllerEmail.text);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Home()));
                 }
               },
               child: const Text('Enviar'),

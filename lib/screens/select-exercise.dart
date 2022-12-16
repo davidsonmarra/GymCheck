@@ -7,6 +7,7 @@ import 'package:gym_check/models/exercicio.dart';
 import 'package:gym_check/models/ficha.dart';
 import 'package:gym_check/screens/add-exercise.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
+import 'package:gym_check/screens/workout-details.dart';
 import 'package:gym_check/screens/workout.dart';
 
 class SelectExercise extends StatefulWidget {
@@ -35,6 +36,11 @@ class _SelectExerciseState extends State<SelectExercise> {
   void addExerciseToWorkout(int exerciseId) async {
     // print(exerciseId);
     await fichaOperations.addFichaAndExercicio(widget.fichaId, exerciseId);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                WorkoutDetails(widget.ficha, widget.fichaId)));
   }
 
   @override

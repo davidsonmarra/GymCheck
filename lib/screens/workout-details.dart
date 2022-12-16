@@ -39,20 +39,21 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Detalhes da Ficha'), actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.add),
-          tooltip: 'Adicionar Ficha',
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddExercise()));
-          },
-        ),
-      ]),
+      appBar: AppBar(
+          title: Text('Detalhes ' + widget.ficha.nome ?? 'Ficha'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.add),
+              tooltip: 'Adicionar Ficha',
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddExercise()));
+              },
+            ),
+          ]),
       body: Center(
         child: Column(
           children: [
-            const Text('Ficha'),
             exercises.length > 0
                 ? Expanded(
                     child: ListView.builder(
