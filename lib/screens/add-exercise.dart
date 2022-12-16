@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gym_check/components/workout-list-item.dart';
 import 'package:gym_check/data/exercicio_operations.dart';
 import 'package:gym_check/models/exercicio.dart';
 
 import 'package:gym_check/screens/home.dart';
 import 'package:gym_check/screens/qr-code-reader.dart';
+import 'package:gym_check/screens/workout-details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -128,6 +130,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     int.parse(_textEditingControllerTempoDescanso.text),
                   );
                   await exercicioOperations.createExercicio(exrc);
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
                 }
               },
               child: const Text('Enviar'),
