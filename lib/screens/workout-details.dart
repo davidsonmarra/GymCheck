@@ -52,49 +52,44 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
             ),
           ]),
       body: Center(
-        child: Column(
-          children: [
-            exercises.length > 0
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: exercises.length,
-                      itemBuilder: (context, index) {
-                        return ExerciseItem(
-                            exercises[index]['id'],
-                            Exercicio(
-                                exercises[index]['nome'],
-                                exercises[index]['num_series'],
-                                exercises[index]['num_repeticoes'],
-                                exercises[index]['temp_exercicio'],
-                                exercises[index]['temp_descanso']),
-                            null);
-                      },
-                    ),
-                  )
-                : const Text('Nenhum exercício encontrado'),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SelectExercise(widget.ficha, widget.fichaId)));
-                },
-                child: const Text('Adicionar Exercício a Ficha'),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              exercises.length > 0
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: exercises.length,
+                        itemBuilder: (context, index) {
+                          return ExerciseItem(
+                              exercises[index]['id'],
+                              Exercicio(
+                                  exercises[index]['nome'],
+                                  exercises[index]['num_series'],
+                                  exercises[index]['num_repeticoes'],
+                                  exercises[index]['temp_exercicio'],
+                                  exercises[index]['temp_descanso']),
+                              null);
+                        },
+                      ),
+                    )
+                  : const Text('Nenhum exercício encontrado'),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SelectExercise(widget.ficha, widget.fichaId)));
+                  },
+                  child: const Text('Adicionar Exercício a Ficha'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Workout()));
-        },
-        backgroundColor: Colors.red,
-        child: const Icon(Icons.timer),
       ),
     );
   }

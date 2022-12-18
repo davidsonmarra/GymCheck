@@ -76,25 +76,11 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                     Text(
                         'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
                   else
-                    const Text('Scan a code'),
+                    const Text('Escaneie o QR Code'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller?.toggleFlash();
-                              setState(() {});
-                            },
-                            child: FutureBuilder(
-                              future: controller?.getFlashStatus(),
-                              builder: (context, snapshot) {
-                                return Text('Flash: ${snapshot.data}');
-                              },
-                            )),
-                      ),
                       Container(
                         margin: const EdgeInsets.all(8),
                         child: ElevatedButton(
@@ -106,8 +92,13 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                               future: controller?.getCameraInfo(),
                               builder: (context, snapshot) {
                                 if (snapshot.data != null) {
-                                  return Text(
-                                      'Camera facing ${describeEnum(snapshot.data!)}');
+                                  return Icon(
+                                    Icons.loop,
+                                    color: Colors.white,
+                                    size: 32,
+                                    semanticLabel:
+                                        'Text to announce in accessibility modes',
+                                  );
                                 } else {
                                   return const Text('loading');
                                 }
@@ -123,12 +114,16 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                       Container(
                         margin: const EdgeInsets.all(8),
                         child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.pauseCamera();
-                          },
-                          child: const Text('pause',
-                              style: TextStyle(fontSize: 20)),
-                        ),
+                            onPressed: () async {
+                              await controller?.pauseCamera();
+                            },
+                            child: const Icon(
+                              Icons.pause,
+                              color: Colors.white,
+                              size: 32,
+                              semanticLabel:
+                                  'Text to announce in accessibility modes',
+                            )),
                       ),
                       Container(
                         margin: const EdgeInsets.all(8),
@@ -136,8 +131,13 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                           onPressed: () async {
                             await controller?.resumeCamera();
                           },
-                          child: const Text('resume',
-                              style: TextStyle(fontSize: 20)),
+                          child: const Icon(
+                            Icons.play_arrow,
+                            color: Colors.white,
+                            size: 32,
+                            semanticLabel:
+                                'Text to announce in accessibility modes',
+                          ),
                         ),
                       )
                     ],

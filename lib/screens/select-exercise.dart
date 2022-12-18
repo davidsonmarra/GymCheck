@@ -54,28 +54,31 @@ class _SelectExerciseState extends State<SelectExercise> {
     return Scaffold(
       appBar: AppBar(title: const Text('Selecionar Exercicios')),
       body: Center(
-        child: Column(
-          children: [
-            exercises.length > 0
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: exercises.length,
-                      itemBuilder: (context, index) {
-                        return ExerciseItem(
-                          exercises[index]['id'],
-                          Exercicio(
-                              exercises[index]['nome'],
-                              exercises[index]['num_series'],
-                              exercises[index]['num_repeticoes'],
-                              exercises[index]['temp_exercicio'],
-                              exercises[index]['temp_descanso']),
-                          addExerciseToWorkout,
-                        );
-                      },
-                    ),
-                  )
-                : const Text('Nenhum exercício encontrado'),
-          ],
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              exercises.length > 0
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: exercises.length,
+                        itemBuilder: (context, index) {
+                          return ExerciseItem(
+                            exercises[index]['id'],
+                            Exercicio(
+                                exercises[index]['nome'],
+                                exercises[index]['num_series'],
+                                exercises[index]['num_repeticoes'],
+                                exercises[index]['temp_exercicio'],
+                                exercises[index]['temp_descanso']),
+                            addExerciseToWorkout,
+                          );
+                        },
+                      ),
+                    )
+                  : const Text('Nenhum exercício encontrado'),
+            ],
+          ),
         ),
       ),
     );
