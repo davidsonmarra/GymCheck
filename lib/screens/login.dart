@@ -74,6 +74,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           right: 40,
         ),
         children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 26),
+            child: Icon(
+              Icons.fitness_center_rounded,
+              color: Colors.red,
+              size: 144.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+          ),
           TextFormField(
             decoration: const InputDecoration(
               hintText: 'E-mail',
@@ -114,7 +123,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   prefs.setString('email', _textEditingControllerEmail.text);
                 }
               },
-              child: const Text('Enviar'),
+              child: const Text('Entrar'),
             ),
           ),
         ],

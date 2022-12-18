@@ -58,24 +58,31 @@ class _HomeState extends State<Home> {
                 case ConnectionState.waiting:
                   return const CircularProgressIndicator();
                 default:
-                  return Column(
-                    children: [
-                      Text('Seja bem vindo, ${snapshot.data}'),
-                      fichas.length > 0
-                          ? Expanded(
-                              child: ListView.builder(
-                                itemCount: fichas.length,
-                                itemBuilder: (context, index) {
-                                  return WorkoutListItem(
-                                    fichas[index]['id'],
-                                    fichas[index]['nome'],
-                                    fichas[index]['num_exercicios'],
-                                  );
-                                },
-                              ),
-                            )
-                          : const Text('Nenhuma ficha encontrado'),
-                    ],
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Seja bem vindo, \n${snapshot.data}\n',
+                          style: TextStyle(fontSize: 24),
+                          textAlign: TextAlign.center,
+                        ),
+                        fichas.length > 0
+                            ? Expanded(
+                                child: ListView.builder(
+                                  itemCount: fichas.length,
+                                  itemBuilder: (context, index) {
+                                    return WorkoutListItem(
+                                      fichas[index]['id'],
+                                      fichas[index]['nome'],
+                                      fichas[index]['num_exercicios'],
+                                    );
+                                  },
+                                ),
+                              )
+                            : const Text('Nenhuma ficha encontrada'),
+                      ],
+                    ),
                   );
               }
             }),
