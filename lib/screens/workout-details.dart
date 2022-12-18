@@ -5,6 +5,7 @@ import 'package:gym_check/models/exercicio.dart';
 import 'package:gym_check/models/ficha.dart';
 import 'package:gym_check/screens/add-exercise.dart';
 import 'package:gym_check/screens/exercise-details.dart';
+import 'package:gym_check/screens/home.dart';
 import 'package:gym_check/screens/select-exercise.dart';
 import 'package:gym_check/screens/workout.dart';
 
@@ -50,6 +51,15 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                     MaterialPageRoute(builder: (context) => AddExercise()));
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.delete),
+              tooltip: 'Adicionar Ficha',
+              onPressed: () async {
+                await fichaOperations.deleteFicha(widget.fichaId);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              },
+            ),
           ]),
       body: Center(
         child: Container(
@@ -90,6 +100,14 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Home()));
+        },
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.home),
       ),
     );
   }

@@ -42,7 +42,8 @@ class ExerciseItem extends StatelessWidget {
                   : Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ExerciseDetails(exercicio)));
+                          builder: (context) =>
+                              ExerciseDetails(exercicio, id)));
               ;
             },
           ),

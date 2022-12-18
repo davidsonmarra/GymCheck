@@ -75,7 +75,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ),
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 26),
+            margin: EdgeInsets.only(bottom: 12),
             child: Icon(
               Icons.fitness_center_rounded,
               color: Colors.red,
@@ -83,6 +83,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               semanticLabel: 'Text to announce in accessibility modes',
             ),
           ),
+          Text("Gym Check\n",
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w700,
+                color: Colors.red,
+              ),
+              textAlign: TextAlign.center),
           TextFormField(
             decoration: const InputDecoration(
               hintText: 'E-mail',

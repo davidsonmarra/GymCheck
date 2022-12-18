@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:gym_check/data/exercicio_operations.dart';
 import 'package:gym_check/models/exercicio.dart';
 import 'package:gym_check/screens/home.dart';
 
 class ExerciseDetails extends StatelessWidget {
   final Exercicio exercicio;
+  final int id;
 
-  const ExerciseDetails(this.exercicio, {super.key});
+  ExerciseDetails(this.exercicio, this.id, {super.key});
+
+  ExercicioOperations exerc = ExercicioOperations();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(exercicio.nome),
-      ),
+      appBar: AppBar(title: Text(exercicio.nome), actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.delete),
+          tooltip: 'Deletar Exercício',
+          onPressed: () async {
+            await exerc.deleteExercise(id);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
+          },
+        ),
+      ]),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(20),
