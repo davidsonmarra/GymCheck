@@ -54,4 +54,10 @@ class FichaOperations {
     List exercicios = await bd.rawQuery(sql);
     return exercicios;
   }
+
+  deleteFicha(id) async {
+    Database bd = await db.initDatabase();
+    String sql = "DELETE FROM Ficha WHERE id = " + id.toString();
+    await bd.rawQuery(sql);
+  }
 }

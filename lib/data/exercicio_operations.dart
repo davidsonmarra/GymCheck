@@ -25,4 +25,11 @@ class ExercicioOperations {
     List exercicios = await bd.rawQuery(sql);
     return exercicios;
   }
+
+  deleteExercise(id) async {
+    Database bd = await db.initDatabase();
+    String sql =
+        "DELETE FROM Pertence WHERE fk_Exercicio_Id = " + id.toString();
+    await bd.rawQuery(sql);
+  }
 }
